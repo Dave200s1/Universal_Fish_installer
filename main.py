@@ -72,6 +72,62 @@ def installFishShell_U():
   else:
     print("Error :C")
 
+#OpenSUSE.................................................
+def runUpdates_SUSE():
+  cmd = "sudo zypper ref"
+  subprocess.run(cmd,shell=True)
+  cmd_upgrade = "sudo zypper update"
+  subprocess.run(cmd_upgrade,shell=True)
+
+def addRepo_Thumbleweed():
+  cmd = "sudo zypper addrepo https://download.opensuse.org/repositories/shells:fish:release:3/openSUSE_Tumbleweed/shells:fish:release:3.repo"
+  subprocess.run(cmd,shell=True)
+  print("\n Repo added. ;)")
+
+def addRepo_Leap():
+  cmd = "sudo zypper addrepo https://download.opensuse.org/repositories/shells:fish:release:3/15.4/shells:fish:release:3.repo"
+  subprocess.run(cmd,shell=True)
+  print("\n Repo added. ;)")
+
+def install_FishSchell_SUSE():
+  print("\n OpenSUSE Fish-Shell-Installer")
+  choose_Version = input("Choose version(Thumbleweed/Leap): ")
+  print(choose_Version)
+  if choose_Version == "Leap" or choose_Version =="leap":
+    print("\n launching Leap-Installer")
+    warning()
+    install_option = input("choose an option(y/n): ")
+    if install_option == "y" or install_option =="Y":
+      print("\n default shell will be changed ...")
+      addRepo_Leap()
+      runUpdates_SUSE()
+      cmd_install = "sudo zypper install fish"
+      subprocess.run(cmd_install,shell=True)
+      changeShell()
+    elif install_option == "n" or install_option == "N":
+      print("\n default shell will not be changed ; )")
+      addRepo_Leap()
+      runUpdates_SUSE()
+      cmd_install = "sudo zypper install fish"
+      subprocess.run(cmd_install,shell=True)   
+  elif choose_Version == "Thumbleweed" or  choose_Version == "thumbleweed":
+    print("\n launching Thumbleweed-Installer")
+    warning()
+    install_option == input("choose an option(y/n): ")
+    if install_option == "y" or install_option =="Y":
+      print("\n default shell will be changed ...")
+      addRepo_Thumbleweed()
+      runUpdates_SUSE()
+      cmd_install = "sudo zypper install fish"
+      subprocess.run(cmd_install,shell=True)
+      changeShell()
+    elif install_option == "n" or install_option == "N":
+      print("\n default shell will not be changed ; )")
+      addRepo_Thumbleweed()
+      runUpdates_SUSE()
+      cmd_install = "sudo zypper install fish"
+      subprocess.run(cmd_install,shell=True)   
+
 #Solus-----------------------------------------------------
 def runUpdates_S():
   print("\n Solus-Fish-Installer")
@@ -104,7 +160,7 @@ def installFishShell_Solus():
 #-----------------------------------------------------------------
 #Enter your OS-Version
 def enterOS_Version():
-  userInput = input("Enter OS: ")
+  userInput = input("Enter OS(Arch,Solus,OpenSuSe,Ubuntu): ")
   if userInput == "Arch" or userInput =="arch":
     print("\n You have entered: Arch ")
     installFishShell_Arch()
@@ -114,8 +170,12 @@ def enterOS_Version():
   elif userInput =="Ubuntu" or userInput =="ubuntu":
     print("\n You have entered: Ubuntu")
     installFishShell_U()
+  elif userInput == "OpenSuse" or userInput == "opensuse":
+    print("\n You have entered: OpenSUSE")
+    install_FishSchell_SUSE()
   else:
     print("\n Error!")
+    print("\n invalid Input !!")
   
 #main
 enterOS_Version()
