@@ -113,7 +113,7 @@ def install_FishSchell_SUSE():
   elif choose_Version == "Thumbleweed" or  choose_Version == "thumbleweed":
     print("\n launching Thumbleweed-Installer")
     warning()
-    install_option == input("choose an option(y/n): ")
+    install_option = input("choose an option(y/n): ")
     if install_option == "y" or install_option =="Y":
       print("\n default shell will be changed ...")
       addRepo_Thumbleweed()
